@@ -50,7 +50,7 @@ class BoxTest {
     }
 
     @Test
-    void whenDoesntExists() {
+    void whenDoesntExist() {
         Box box = new Box(3, 5);
         boolean rsl = box.isExist();
         assertThat(rsl).isFalse();
