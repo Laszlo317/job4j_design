@@ -17,4 +17,4 @@
 
 Таким образом, оператор {\displaystyle A}A удовлетворяет всем условиям теоремы Шаудера. Существует неподвижная точка этого оператора, то есть такая функция {\displaystyle {\tilde {x}}(t)}{\tilde  {x}}(t), что {\displaystyle {\tilde {x}}(t)\equiv x_{0}+\int \limits _{t_{0}}^{t}f(\tau ,{\tilde {x}}(\tau ))d\tau }{\tilde  {x}}(t)\equiv x_{0}+\int \limits _{{t_{{0}}}}^{{t}}f(\tau ,{\tilde  {x}}(\tau ))d\tau .
 
-Эта функция {\displaystyle {\tilde {x}}(t)}{\tilde  {x}}(t) будет решением уравнения {\displaystyle {\frac {dx}{dt}}=f(t,x)}{\frac  {dx}{dt}}=f(t,x), удовлетворяющим начальному условию {\displaystyle x(t_{0})=x_{0}}x(t_{0})=x_{0}.
+Эта функция {\displaystyle {\tilde {x}}(t)}{\tilde  {x}}(t) будет решением уравнения {\displaystyle {\frac {dx}{dt}}=f(t,x)}{\frac  {dx}{dt}}=f(t,x), удовлетворяющим начальному условию {\displaystyle x(t_{0})=x_{0}}x(t_{0})=x_{0}
