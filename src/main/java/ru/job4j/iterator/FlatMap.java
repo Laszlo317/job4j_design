@@ -17,15 +17,16 @@ public class FlatMap<T> implements Iterator<T> {
 
     @Override
     public boolean hasNext() {
-        while (true) {
-            if (cursor.hasNext()) {
-                return true;
-            } else if (!data.hasNext()) {
-                return false;
-            } else {
+        boolean rsl = false;
+        while (cursor.hasNext() || data.hasNext()) {
+            if (!cursor.hasNext()) {
                 cursor = data.next();
+                continue;
             }
+            rsl = true;
+            break;
         }
+        return rsl;
     }
 
     @Override
