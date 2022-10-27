@@ -24,13 +24,11 @@ public class EvenNumbersIterator implements Iterator<Integer> {
 
     @Override
     public Integer next() {
-        int rsl = -1;
-        if (hasNext()) {
-            rsl = data[point++];
-        }
-        if (rsl == -1) {
+        int rsl;
+        if (!hasNext()) {
             throw new NoSuchElementException();
         }
+        rsl = data[point++];
         return rsl;
     }
 
