@@ -88,6 +88,11 @@ public class SimpleArrayList<T> implements SimpleList<T> {
     }
 
     private T[] grow() {
-        return Arrays.copyOf(container, container.length * 2);
+        T[] rsl;
+        if (container.length == 0) {
+            rsl = (T[]) new Object[10];
+        }
+        rsl = Arrays.copyOf(container, container.length * 2);
+        return rsl;
     }
 }
