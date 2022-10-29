@@ -17,7 +17,7 @@ public class SimpleArrayList<T> implements SimpleList<T> {
     @Override
     public void add(T value) {
         if (size == container.length) {
-            container = Arrays.copyOf(container, container.length * 2);
+            container = grow();
         }
         container[size] = value;
         size++;
@@ -27,7 +27,7 @@ public class SimpleArrayList<T> implements SimpleList<T> {
     @Override
     public T set(int index, T newValue) {
         T prevValue;
-        if (index < 0 || index >= size) {
+        if (Objects.checkIndex(index, size) != index) {
             throw new IndexOutOfBoundsException();
         }
         prevValue = container[index];
@@ -38,7 +38,7 @@ public class SimpleArrayList<T> implements SimpleList<T> {
     @Override
     public T remove(int index) {
         T prevValue;
-        if (index < 0 || index >= size) {
+        if (Objects.checkIndex(index, size) != index) {
             throw new IndexOutOfBoundsException();
         }
         prevValue = container[index];
@@ -52,7 +52,7 @@ public class SimpleArrayList<T> implements SimpleList<T> {
 
     @Override
     public T get(int index) {
-        if (index < 0 || index >= size) {
+        if (Objects.checkIndex(index, size) != index) {
             throw new IndexOutOfBoundsException();
         }
         return container[index];
@@ -71,6 +71,9 @@ public class SimpleArrayList<T> implements SimpleList<T> {
 
             @Override
             public boolean hasNext() {
+                if (expectedModCount != modCount) {
+                    throw new ConcurrentModificationException();
+                }
                 return current < size;
             }
 
@@ -78,13 +81,13 @@ public class SimpleArrayList<T> implements SimpleList<T> {
             public T next() {
                 if (!hasNext()) {
                     throw new NoSuchElementException();
-                } else if (expectedModCount != modCount) {
-                    throw new ConcurrentModificationException();
                 }
                 return container[current++];
-
             }
-
         };
+    }
+
+    private T[] grow() {
+        return Arrays.copyOf(container, container.length * 2);
     }
 }
