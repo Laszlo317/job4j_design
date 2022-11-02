@@ -1,6 +1,7 @@
 package ru.job4j.collection;
 
 import java.util.*;
+import java.util.LinkedList;
 
 public class SimpleArrayList<T> implements SimpleList<T> {
 
@@ -94,5 +95,6 @@ public class SimpleArrayList<T> implements SimpleList<T> {
         }
         rsl = Arrays.copyOf(container, container.length * 2);
         return rsl;
+
     }
 }
