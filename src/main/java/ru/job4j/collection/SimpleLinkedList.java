@@ -49,8 +49,8 @@ public class SimpleLinkedList<E> implements LinkedList<E> {
     public Iterator<E> iterator() {
         return new Iterator<E>() {
 
-            int counter;
-            E lastReturned;
+            private int counter;
+            private E lastReturned;
 
             private final int expectedModCount = modCount;
 
