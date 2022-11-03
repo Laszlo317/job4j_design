@@ -7,34 +7,34 @@ import java.util.Objects;
 
 public class SimpleLinkedList<E> implements LinkedList<E> {
 
-    private int size = 0;
+    private int size = 1;
 
-    private Node<E> first;
-    private Node<E> last;
-
-    private Node<E> pointer;
+    private Node<E> head;
 
     private int modCount;
 
     @Override
+
     public void add(E value) {
         modCount++;
-        Node<E> prev = last;
-        Node<E> node = new Node<>(prev, value, null);
-        last = node;
-        if (prev == null) {
-            first = node;
-        } else {
-            prev.next = node;
+        Node<E> tail = head;
+        Node<E> node = new Node<>(value, null);
+        if (head == null) {
+            head = node;
+            return;
         }
+        while (tail.next != null) {
+            tail = tail.next;
+        }
+        tail.next = node;
         size++;
     }
 
     @Override
     public E get(int index) {
-        E rsl = null;
-        Node<E> node = first;
         Objects.checkIndex(index, size);
+        E rsl = null;
+        Node<E> node = head;
         for (int i = 0; i <= index; i++) {
             if (i == index) {
                 rsl = node.item;
@@ -49,7 +49,7 @@ public class SimpleLinkedList<E> implements LinkedList<E> {
     public Iterator<E> iterator() {
         return new Iterator<E>() {
 
-            private int counter;
+            private Node<E> pointer = head;
             private E lastReturned;
 
             private final int expectedModCount = modCount;
@@ -58,9 +58,6 @@ public class SimpleLinkedList<E> implements LinkedList<E> {
             public boolean hasNext() {
                 if (expectedModCount != modCount) {
                     throw new ConcurrentModificationException();
-                }
-                if (counter == 0) {
-                    pointer = first;
                 }
                 return pointer != null;
             }
@@ -72,7 +69,6 @@ public class SimpleLinkedList<E> implements LinkedList<E> {
                 }
                 lastReturned = pointer.item;
                 pointer = pointer.next;
-                counter++;
                 return lastReturned;
             }
         };
@@ -81,12 +77,10 @@ public class SimpleLinkedList<E> implements LinkedList<E> {
     private static class Node<E> {
         E item;
         Node<E> next;
-        Node<E> prev;
 
-        Node(Node<E> prev, E element, Node<E> next) {
+        Node(E element, Node<E> next) {
             this.item = element;
             this.next = next;
-            this.prev = prev;
         }
     }
 }
