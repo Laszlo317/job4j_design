@@ -5,6 +5,7 @@ import ru.job4j.collection.SimpleArrayList;
 import java.util.ConcurrentModificationException;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
+import java.util.Objects;
 
 public class SimpleSet<T> implements Set<T> {
 
@@ -27,12 +28,7 @@ public class SimpleSet<T> implements Set<T> {
     public boolean contains(T value) {
         boolean rsl = false;
         for (T element : set) {
-            if (value != null) {
-                if (value.equals(element)) {
-                    rsl = true;
-                    break;
-                }
-            } else if (element == null) {
+            if (Objects.equals(element, value)) {
                 rsl = true;
                 break;
             }
