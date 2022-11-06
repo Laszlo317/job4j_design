@@ -31,7 +31,7 @@ class SimpleSetTest {
             set.add(i);
         }
         Iterator<Integer> it = set.iterator();
-        while(it.hasNext()) {
+        while (it.hasNext()) {
             it.next();
         }
         assertThat(it.hasNext()).isFalse();
