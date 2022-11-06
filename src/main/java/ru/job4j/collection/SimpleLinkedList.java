@@ -21,6 +21,7 @@ public class SimpleLinkedList<E> implements LinkedList<E> {
         Node<E> node = new Node<>(value, null);
         if (head == null) {
             head = node;
+            size++;
             return;
         }
         while (tail.next != null) {
@@ -32,7 +33,7 @@ public class SimpleLinkedList<E> implements LinkedList<E> {
 
     @Override
     public E get(int index) {
-        Objects.checkIndex(index, size + 1);
+        Objects.checkIndex(index, size);
         E rsl = null;
         Node<E> node = head;
         for (int i = 0; i < index; i++) {
