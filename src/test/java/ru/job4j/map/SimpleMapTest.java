@@ -157,21 +157,6 @@ class SimpleMapTest {
         assertThat(map).hasSize(5);
     }
 
-    @Test
-    void whenPutUpToDoubleSizeTwice() {
-        assertThat(map.put(8, "8")).isTrue();
-        assertThat(map.put(6, "6")).isTrue();
-        assertThat(map.put(10, "10")).isTrue();
-        assertThat(map.put(11, "11")).isTrue();
-        assertThat(map.put(12, "12")).isTrue();
-        assertThat(map.put(16, "31")).isFalse();
-        assertThat(map.put(13, "13")).isTrue();
-        assertThat(map.put(14, "14")).isTrue();
-        assertThat(map.put(15, "15")).isTrue();
-        assertThat(map.put(16, "16")).isTrue();
-        assertThat(map.put(16, "31")).isFalse();
-        assertThat(map.put(21, "31")).isTrue();
-    }
 
     @Test
     void whenRemoveAll() {
