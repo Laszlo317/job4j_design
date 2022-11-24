@@ -35,7 +35,7 @@ public class SimpleMap<K, V> implements Map<K, V> {
     }
 
     private int indexFor(int hash) {
-        return (table.length - 1) & hash(hash);
+        return (table.length - 1) & hash;
     }
 
     private void expand() {
@@ -52,11 +52,15 @@ public class SimpleMap<K, V> implements Map<K, V> {
 
     @Override
     public V get(K key) {
-        V rsl;
-        int index = indexFor(Objects.hashCode(key));
-        rsl = table[index] != null ? table[index].value : null;
-        if ((key == null || Objects.equals(key, 0)) && key != table[index].key) {
-            rsl = null;
+        V rsl = null;
+        int keyHash = hash(Objects.hashCode(key));
+        int index = indexFor(keyHash);
+        if (table[index] != null) {
+            K e = table[index].key;
+            int eHash = hash(Objects.hashCode(e));
+            if (eHash == keyHash && Objects.equals(e, key)) {
+                rsl = table[index].value;
+            }
         }
         return rsl;
     }
@@ -64,12 +68,17 @@ public class SimpleMap<K, V> implements Map<K, V> {
     @Override
     public boolean remove(K key) {
         boolean rsl = false;
-        int index = indexFor(Objects.hashCode(key));
-        if (index <= count && table[index] != null) {
-            table[index] = null;
-            rsl = true;
-            count--;
-            modCount++;
+        int keyHash = hash(Objects.hashCode(key));
+        int index = indexFor(keyHash);
+        if (table[index] != null) {
+            K e = table[index].key;
+            int eHash = hash(Objects.hashCode(e));
+            if ((eHash == keyHash) && Objects.equals(e, key)) {
+                table[index] = null;
+                count--;
+                modCount++;
+                rsl = true;
+            }
         }
         return rsl;
     }
